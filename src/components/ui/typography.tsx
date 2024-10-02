@@ -2,12 +2,12 @@ import { cn } from "@/lib/utils";
 import { HtmlHTMLAttributes } from "react";
 
 type TypographyProps = {
-  variant?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+  variant?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p";
   text: string;
   className?: string;
 } & HtmlHTMLAttributes<HTMLElement>;
 
-function typography({
+function Typography({
   variant = "h1",
   text,
   className,
@@ -33,4 +33,4 @@ function typography({
   );
 }
 
-export default typography;
+export default Typography;

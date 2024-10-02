@@ -1,2 +1,5 @@
 supabase ssr 
 https://supabase.com/docs/guides/auth/server-side/creating-a-client
+
+supabase oauth
+https://supabase.com/docs/guides/auth/server-side/nextjs

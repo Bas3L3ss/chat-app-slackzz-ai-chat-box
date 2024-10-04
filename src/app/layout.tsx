@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Lato } from "next/font/google";
 import "@/styles/globals.css";
+import { Toaster } from "@/components/ui/toaster";
 
 const lato = Lato({
   subsets: ["latin"],
@@ -12,6 +13,8 @@ export const metadata: Metadata = {
   description: "Slack clone baseless's",
 };
 
+export const revalidate = 0;
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -19,7 +22,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${lato.className}  antialiased`}>{children}</body>
+      <body className={`${lato.className}  antialiased`}>
+        <main>{children}</main>
+        <Toaster />
+      </body>
     </html>
   );
 }

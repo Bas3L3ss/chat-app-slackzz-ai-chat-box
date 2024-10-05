@@ -1,3 +1,5 @@
+import MainContent from "@/components/main-content";
+import { ColorPrefrencesProvider } from "@/providers/color-preferences";
 import { ThemeProvider } from "@/providers/theme-provider";
 import { FC, ReactNode } from "react";
 
@@ -9,7 +11,9 @@ const MainLayout: FC<{ children: ReactNode }> = ({ children }) => {
       enableSystem
       disableTransitionOnChange
     >
-      {children}
+      <ColorPrefrencesProvider>
+        <MainContent>{children}</MainContent>
+      </ColorPrefrencesProvider>
     </ThemeProvider>
   );
 };

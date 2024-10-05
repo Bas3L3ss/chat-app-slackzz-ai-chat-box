@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Lato } from "next/font/google";
 import "@/styles/globals.css";
+import { Toaster as ToasterSonner } from "sonner";
 import { Toaster } from "@/components/ui/toaster";
 
 const lato = Lato({
@@ -24,6 +25,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${lato.className}  antialiased`}>
         <main>{children}</main>
+        <ToasterSonner />
         <Toaster />
       </body>
     </html>

@@ -6,11 +6,14 @@ import {
 } from "@/actions/workspaces";
 import InfoSection from "@/components/info-section";
 import Sidebar from "@/components/sidebar";
-import Typography from "@/components/ui/typography";
 import { Workspace as userWorkSpaceType } from "@/types/app";
 import { redirect } from "next/navigation";
 
-async function Workspace({ params: { id } }: { params: { id: string } }) {
+async function Workspace({
+  params: { workspaceId },
+}: {
+  params: { workspaceId: string };
+}) {
   const userData = await getUserData();
 
   if (!userData) {
@@ -19,7 +22,7 @@ async function Workspace({ params: { id } }: { params: { id: string } }) {
 
   const [userWorkspaceData] = await getUserWorkspaceData(userData.workspaces!);
 
-  const [currentWorkspaceData] = await getCurrentWorkspaceData(id);
+  const [currentWorkspaceData] = await getCurrentWorkspaceData(workspaceId);
 
   const userWorkspaceChannels = await getUserWorkspaceChannels(
     currentWorkspaceData.id,
@@ -40,14 +43,6 @@ async function Workspace({ params: { id } }: { params: { id: string } }) {
           currentChannelId=""
           userData={userData}
         />
-        WorkSpace
-        <Typography text="Hiiii" variant="h1" />
-        <Typography text="Hiiii" variant="h2" />
-        <Typography text="Hiiii" variant="h3" />
-        <Typography text="Hiiii" variant="h4" />
-        <Typography text="Hiiii" variant="h5" />
-        <Typography text="Hiiii" variant="h6" />
-        <Typography text="Hiiii" variant="p" />
       </div>
       <div className="md:hidden block min-h-screen">Mobile</div>
     </>

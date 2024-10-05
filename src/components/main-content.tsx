@@ -4,11 +4,11 @@ import { useTheme } from "next-themes";
 import { FC, ReactNode } from "react";
 
 import { cn } from "@/lib/utils";
-import { useColorPrefrences } from "@/providers/color-preferences";
+import { useColorPreferences } from "@/providers/color-preferences";
 
 const MainContent: FC<{ children: ReactNode }> = ({ children }) => {
   const { theme } = useTheme();
-  const { color } = useColorPrefrences();
+  const { color } = useColorPreferences();
 
   let backgroundColor = "bg-primary-dark";
   if (color === "green") {

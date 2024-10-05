@@ -20,11 +20,11 @@ const ColorPrefrencesContext = createContext<
   ColorPrefrencesContext | undefined
 >(undefined);
 
-export const useColorPrefrences = () => {
+export const useColorPreferences = () => {
   const context = useContext(ColorPrefrencesContext);
   if (!context) {
     throw new Error(
-      "useColorPrefrences must be used within a ColorPrefrencesProvider"
+      "useColorPreferences must be used within a ColorPrefrencesProvider"
     );
   }
 

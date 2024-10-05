@@ -10,11 +10,11 @@ import { Button } from "./ui/button";
 import { cn } from "@/lib/utils";
 import { MdLightMode } from "react-icons/md";
 import { BsLaptop } from "react-icons/bs";
-import { useColorPrefrences } from "@/providers/color-preferences";
+import { useColorPreferences } from "@/providers/color-preferences";
 
 const PreferencesDialog = () => {
   const { setTheme, theme } = useTheme();
-  const { selectColor } = useColorPrefrences();
+  const { selectColor } = useColorPreferences();
 
   return (
     <Dialog>

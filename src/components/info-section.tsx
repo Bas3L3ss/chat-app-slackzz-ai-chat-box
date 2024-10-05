@@ -1,10 +1,31 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { useColorPrefrences } from "@/providers/color-preferences";
+import { useColorPreferences } from "@/providers/color-preferences";
+import { Collapsible, CollapsibleTrigger } from "./ui/collapsible";
+import { FC, useState } from "react";
+import { FaArrowDown, FaArrowUp, FaPlus } from "react-icons/fa6";
+import Typography from "./ui/typography";
+import { CollapsibleContent } from "@radix-ui/react-collapsible";
+import CreateChannelDialog from "./create-channel-dialog";
+import { User, Workspace } from "@/types/app";
 
-function InfoSection() {
-  const { color } = useColorPrefrences();
+const InfoSection: FC<{
+  userData: User;
+  currentWorkspaceData: Workspace;
+  //   userWorkspaceChannels: Channel[];
+  //   currentChannelId: string | undefined;
+}> = ({
+  userData,
+  currentWorkspaceData,
+  //   userWorkspaceChannels,
+  //   currentChannelId,
+}) => {
+  const { color } = useColorPreferences();
+  const [isChannelCollapsed, setIsChannelCollapsed] = useState<boolean>(false);
+  const [isDirectMessageCollapsed, setIsDirectMessageCollapsed] =
+    useState<boolean>(true);
+  const [dialogOpen, setDialogOpen] = useState<boolean>(false);
 
   let backgroundColor = "bg-primary-light";
   if (color === "green") {
@@ -27,12 +48,94 @@ function InfoSection() {
         backgroundColor
       )}
     >
-      {/* Channels */}
-      {/* DMs */}
-      <p>Channels</p>
-      <p>DMs</p>
+      <div className="w-full flex flex-col gap-2 p-3">
+        <div>
+          <Collapsible
+            onOpenChange={() =>
+              setIsChannelCollapsed((prevState) => !prevState)
+            }
+            open={isChannelCollapsed}
+            className="flex flex-col gap-2"
+          >
+            <div className="flex items-center justify-between ">
+              <CollapsibleTrigger className="flex items-center gap-2">
+                {isChannelCollapsed ? <FaArrowDown /> : <FaArrowUp />}
+                <Typography variant="p" text="Channels" className="font-bold" />
+              </CollapsibleTrigger>
+              <div
+                className={cn(
+                  "cursor-pointer p-2 rounded-full",
+                  `hover:${secondaryBg} `
+                )}
+              >
+                <FaPlus onClick={() => setDialogOpen(true)} />
+              </div>
+            </div>
+            <CollapsibleContent>
+              {/* {userWorkspaceChannels.map((channel) => {
+                const activeChannel = currentChannelId === channel.id;
+                return (
+                  <Typography
+                    key={channel.id}
+                    variant="p"
+                    text={`# ${channel.name}`}
+                    className={cn(
+                      "px-2 py-1 rounded-sm cursor-pointer",
+                      `hover:${secondaryBg}`,
+                      activeChannel && secondaryBg
+                    )}
+                    onClick={() => navigateToChannel(channel.id)}
+                  />
+                );
+              })} */}
+            </CollapsibleContent>
+          </Collapsible>
+        </div>
+        <div>
+          <Collapsible
+            open={isDirectMessageCollapsed}
+            onOpenChange={() =>
+              setIsDirectMessageCollapsed((prevState) => !prevState)
+            }
+            className="flex flex-col gap-2"
+          >
+            <div className="flex items-center justify-between">
+              <CollapsibleTrigger className="flex items-center gap-2">
+                {isDirectMessageCollapsed ? <FaArrowDown /> : <FaArrowUp />}
+                <Typography
+                  variant="p"
+                  text="Direct messages"
+                  className="font-bold"
+                />
+              </CollapsibleTrigger>
+            </div>
+            <CollapsibleContent>
+              {/* {currentWorkspaceData?.members?.map((member) => {
+                return (
+                  <Typography
+                    key={member.id}
+                    variant="p"
+                    text={member.name || member.email}
+                    className={cn(
+                      "px-2 py-1 rounded-sm cursor-pointer",
+                      `hover:${secondaryBg}`
+                    )}
+                    onClick={() => navigateToDirectMessage(member.id)}
+                  />
+                );
+              })} */}
+            </CollapsibleContent>
+          </Collapsible>
+        </div>
+      </div>
+      <CreateChannelDialog
+        setDialogOpen={setDialogOpen}
+        dialogOpen={dialogOpen}
+        workspaceId={currentWorkspaceData.id}
+        userId={userData.id}
+      />
     </div>
   );
-}
+};
 
 export default InfoSection;

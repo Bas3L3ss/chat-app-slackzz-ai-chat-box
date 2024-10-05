@@ -25,7 +25,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Typography from "@/components/ui/typography";
 import { FaRegCalendarCheck } from "react-icons/fa";
 import PreferencesDialog from "@/components/preferences-dialog";
-import { useColorPrefrences } from "@/providers/color-preferences";
+import { useColorPreferences } from "@/providers/color-preferences";
 import SideBarNav from "./sidebar-nav";
 
 type SidebarProps = {
@@ -39,7 +39,7 @@ const Sidebar: FC<SidebarProps> = ({
   currentWorkspaceData,
   userData,
 }) => {
-  const { color } = useColorPrefrences();
+  const { color } = useColorPreferences();
 
   let backgroundColor = "bg-primary-dark";
   if (color === "green") {

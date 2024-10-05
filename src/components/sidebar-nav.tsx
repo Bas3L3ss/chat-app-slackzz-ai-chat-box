@@ -19,7 +19,7 @@ import { useRouter } from "next/navigation";
 
 import { cn } from "@/lib/utils";
 import { Copy } from "lucide-react";
-import { useColorPrefrences } from "@/providers/color-preferences";
+import { useColorPreferences } from "@/providers/color-preferences";
 import { toast } from "sonner";
 import ProgressBar from "./progress-bar";
 
@@ -34,7 +34,7 @@ const SidebarNav: FC<SidebarNavProps> = ({
 }) => {
   const router = useRouter();
   const [switchingWorkspace, setSwitchingWorkspace] = useState(false);
-  const { color } = useColorPrefrences();
+  const { color } = useColorPreferences();
 
   let backgroundColor = "bg-primary-dark";
   if (color === "green") {

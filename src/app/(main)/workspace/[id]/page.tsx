@@ -16,12 +16,9 @@ async function Workspace({ params: { id } }: { params: { id: string } }) {
     return redirect("/auth");
   }
 
-  const [userWorkspaceData, userWorkspaceError] = await getUserWorkspaceData(
-    userData.workspaces!
-  );
+  const [userWorkspaceData] = await getUserWorkspaceData(userData.workspaces!);
 
-  const [currentWorkspaceData, currentWorkspaceError] =
-    await getCurrentWorkspaceData(id);
+  const [currentWorkspaceData] = await getCurrentWorkspaceData(id);
 
   return (
     <>
@@ -31,7 +28,10 @@ async function Workspace({ params: { id } }: { params: { id: string } }) {
           userData={userData}
           userWorkspacesData={userWorkspaceData as userWorkSpaceType[]}
         />
-        <InfoSection />
+        <InfoSection
+          currentWorkspaceData={currentWorkspaceData}
+          userData={userData}
+        />
         WorkSpace
         <Typography text="Hiiii" variant="h1" />
         <Typography text="Hiiii" variant="h2" />

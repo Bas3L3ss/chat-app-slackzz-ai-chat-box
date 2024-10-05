@@ -8,24 +8,31 @@ import { FaArrowDown, FaArrowUp, FaPlus } from "react-icons/fa6";
 import Typography from "./ui/typography";
 import { CollapsibleContent } from "@radix-ui/react-collapsible";
 import CreateChannelDialog from "./create-channel-dialog";
-import { User, Workspace } from "@/types/app";
+import { Channel, User, Workspace } from "@/types/app";
+import { useRouter } from "next/navigation";
 
 const InfoSection: FC<{
   userData: User;
   currentWorkspaceData: Workspace;
-  //   userWorkspaceChannels: Channel[];
-  //   currentChannelId: string | undefined;
+  userWorkspaceChannels: Channel[];
+  currentChannelId: string | undefined;
 }> = ({
   userData,
   currentWorkspaceData,
-  //   userWorkspaceChannels,
-  //   currentChannelId,
+  userWorkspaceChannels,
+  currentChannelId,
 }) => {
   const { color } = useColorPreferences();
-  const [isChannelCollapsed, setIsChannelCollapsed] = useState<boolean>(false);
+  const [isChannelCollapsed, setIsChannelCollapsed] = useState<boolean>(true);
   const [isDirectMessageCollapsed, setIsDirectMessageCollapsed] =
     useState<boolean>(true);
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
+  const router = useRouter();
+
+  const navigateToChannel = (channelId: string) => {
+    const url = `/workspace/${currentWorkspaceData.id}/channels/${channelId}`;
+    router.push(url);
+  };
 
   let backgroundColor = "bg-primary-light";
   if (color === "green") {
@@ -72,7 +79,7 @@ const InfoSection: FC<{
               </div>
             </div>
             <CollapsibleContent>
-              {/* {userWorkspaceChannels.map((channel) => {
+              {userWorkspaceChannels.map((channel) => {
                 const activeChannel = currentChannelId === channel.id;
                 return (
                   <Typography
@@ -87,7 +94,7 @@ const InfoSection: FC<{
                     onClick={() => navigateToChannel(channel.id)}
                   />
                 );
-              })} */}
+              })}
             </CollapsibleContent>
           </Collapsible>
         </div>

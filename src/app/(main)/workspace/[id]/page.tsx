@@ -1,4 +1,5 @@
 import { getUserData } from "@/actions/get-user-data";
+import { getUserWorkspaceChannels } from "@/actions/get-user-workspace-channels";
 import {
   getCurrentWorkspaceData,
   getUserWorkspaceData,
@@ -20,6 +21,11 @@ async function Workspace({ params: { id } }: { params: { id: string } }) {
 
   const [currentWorkspaceData] = await getCurrentWorkspaceData(id);
 
+  const userWorkspaceChannels = await getUserWorkspaceChannels(
+    currentWorkspaceData.id,
+    userData.id
+  );
+
   return (
     <>
       <div className="hidden md:block">
@@ -29,7 +35,9 @@ async function Workspace({ params: { id } }: { params: { id: string } }) {
           userWorkspacesData={userWorkspaceData as userWorkSpaceType[]}
         />
         <InfoSection
+          userWorkspaceChannels={userWorkspaceChannels}
           currentWorkspaceData={currentWorkspaceData}
+          currentChannelId=""
           userData={userData}
         />
         WorkSpace

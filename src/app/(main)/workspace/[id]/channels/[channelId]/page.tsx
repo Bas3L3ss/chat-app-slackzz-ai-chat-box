@@ -63,7 +63,13 @@ const ChannelPage = async ({
           </div>
         </div>
         <div className="m-4">
-          <TextEditor channel={currentChannelData} />
+          <TextEditor
+            userData={userData}
+            apiUrl="/api/web-socket/messages"
+            workspaceData={currentWorkspaceData}
+            channel={currentChannelData}
+            type="Channel"
+          />
         </div>
       </div>
     </>

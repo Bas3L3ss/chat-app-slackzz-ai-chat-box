@@ -17,4 +17,4 @@ https://nextjs.org/docs/messages/next-image-unconfigured-host
 
 
 
-npx supabase gen types --lang=typescript --project-id "ovxyxgwaesucdtpigsof" --schema public > src/types/supabase.ts
+npx supabase gen types --lang=typescript --project-id "project_id" --schema public > src/types/supabase.ts

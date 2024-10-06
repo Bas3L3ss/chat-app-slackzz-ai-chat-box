@@ -1,5 +1,6 @@
 import type { Config } from "tailwindcss";
 import tailwindcssAnimate from "tailwindcss-animate";
+import tailwindcssTypography from "@tailwindcss/typography";
 import { withUt } from "uploadthing/tw";
 
 const config: Config = {
@@ -62,6 +63,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [tailwindcssAnimate], // error here
+  plugins: [tailwindcssAnimate, tailwindcssTypography], // error here
 };
 export default withUt(config);

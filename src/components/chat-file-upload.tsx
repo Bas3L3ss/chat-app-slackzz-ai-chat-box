@@ -105,6 +105,8 @@ const ChatFileUpload: FC<ChatFileUploadProps> = ({
       return { error: messageInsertError.message };
     }
 
+    // emit message
+
     setIsUploading(false);
     toggleFileUploadModal();
     form.reset();

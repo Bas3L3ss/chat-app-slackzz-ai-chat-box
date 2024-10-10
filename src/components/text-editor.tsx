@@ -37,6 +37,8 @@ function TextEditor({
   recipientId,
 }: TextEditorProps) {
   const [content, setContent] = useState<string>("");
+  const [isSending, setIsSending] = useState<boolean>(false);
+
   const [fileUploadModal, setFileUploadModal] = useState<boolean>(false);
 
   const toggleFileUploadModal = () =>
@@ -58,6 +60,7 @@ function TextEditor({
 
   const handleSend = async () => {
     if (content.length < 2) return;
+    setIsSending(true);
 
     try {
       const payload = {
@@ -72,10 +75,15 @@ function TextEditor({
       } else if (type === "DirectMessage" && recipientId) {
         endpoint += `?recipientId=${recipientId}&workspaceId=${workspaceData.id}`;
       }
-
-      await axios.post(endpoint, payload);
+      try {
+        await axios.post(endpoint, payload);
+      } catch (error) {
+        console.log(error);
+      }
 
       setContent("");
+      setIsSending(false);
+
       editor?.commands.setContent("");
     } catch (error) {
       console.log(error);
@@ -102,7 +110,7 @@ function TextEditor({
       </div>
       <Button
         onClick={handleSend}
-        disabled={content.length < 2}
+        disabled={content.length < 2 || isSending}
         size="sm"
         className="absolute bottom-1 right-1"
       >

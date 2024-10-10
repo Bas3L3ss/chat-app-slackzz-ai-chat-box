@@ -42,3 +42,4 @@ export type Message = {
   user_id: string;
   workspace_id: string;
 };
+export type MessageWithUser = Message & { user: User };

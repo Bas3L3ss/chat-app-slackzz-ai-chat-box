@@ -1,7 +1,4 @@
-import InfoSection from "@/components/info-section";
-import Sidebar from "@/components/sidebar";
 import React from "react";
-import { Workspace as userWorkSpaceType } from "@/types/app";
 import { getUserData } from "@/actions/get-user-data";
 import { redirect } from "next/navigation";
 import {
@@ -9,9 +6,9 @@ import {
   getUserWorkspaceData,
 } from "@/actions/workspaces";
 import { getUserWorkspaceChannels } from "@/actions/get-user-workspace-channels";
-import ChatHeader from "@/components/chat-header";
-import Typography from "@/components/ui/typography";
-import TextEditor from "@/components/text-editor";
+
+import ChatGroup from "@/components/chat-group";
+import { Workspace } from "@/types/app";
 
 const ChannelPage = async ({
   params: { channelId, id },
@@ -43,34 +40,25 @@ const ChannelPage = async ({
   return (
     <>
       <div className="hidden md:block">
-        <div className="h-[calc(100vh-256px)] overflow-y-auto [&::-webkit-scrollbar-thumb]:rounded-[6px] [&::-webkit-scrollbar-thumb]:bg-foreground/60 [&::-webkit-scrollbar-track]:bg-none [&::-webkit-scrollbar]:w-2">
-          <Sidebar
-            currentWorkspaceData={currentWorkspaceData}
-            userData={userData}
-            userWorkspacesData={userWorkspaceData as userWorkSpaceType[]}
-          />
-          <InfoSection
-            userWorkspaceChannels={userWorkspaceChannels}
-            currentWorkspaceData={currentWorkspaceData}
-            currentChannelId={currentChannelData.id}
-            userData={userData}
-          />
-          <div className="p-4 relative w-full overflow-hidden">
-            <ChatHeader title={currentChannelData.name} />
-            <div className="mt-10">
-              <Typography text={"hi"} variant="h4" />
-            </div>
-          </div>
-        </div>
-        <div className="m-4">
-          <TextEditor
-            userData={userData}
-            apiUrl="/api/web-socket/messages"
-            workspaceData={currentWorkspaceData}
-            channel={currentChannelData}
-            type="Channel"
-          />
-        </div>
+        <ChatGroup
+          type="Channel"
+          userData={userData}
+          currentChannelData={currentChannelData}
+          currentWorkspaceData={currentWorkspaceData}
+          userWorkspaceChannels={userWorkspaceChannels}
+          userWorkspaceData={userWorkspaceData as Workspace[]}
+          slug={id}
+          socketQuery={{
+            channelId: currentChannelData.id,
+            workspaceId: currentWorkspaceData.id,
+          }}
+          chatId={channelId}
+          socketUrl="/api/web-socket/messages"
+          headerTitle={currentChannelData.name}
+          paramKey="channelId"
+          paramValue={channelId}
+          apiUrl="/api/messages"
+        />
       </div>
     </>
   );
